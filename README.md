@@ -52,37 +52,42 @@ Our dataset is licensed under a [Creative Commons Attribution-NonCommercial-Shar
 
 ```
 IconQA
-|
+|   LICENSE.md
+|   metadata.json
+|   pid2skills.json
+|   pid_splits.json
+|   problems.json
+|   skills.json
 └───test
 │   │
 │   └───choose_img
 │   |   |
-│   |   └───id1
+│   |   └───question_id
 │   |   |   |   image.png
 |   |   |   |   data.json
 |   |   |   |   choice_0.png
 |   |   |   |   choice_1.png
 |   |   |   |   ...
 |   |   |
-|   |   └───id2
+|   |   └───question_id
 |   |   |   ...
 |   |   
 |   └───choose_txt
 |   |   |  
-|   |   └───id1
+|   |   └───question_id
 |   |   |   |   image.png
 |   |   |   |   data.json
 |   |   | 
-|   |   └───id2
+|   |   └───question_id
 |   |   |   ...
 |   |
 |   └───fill_in_blank
 |       |  
-|       └───id1
+|       └───question_id
 |       |   |   image.png
 |       |   |   data.json
 |       | 
-|       └───id2
+|       └───question_id
 |       |   ...
 |   
 └───train
@@ -96,17 +101,20 @@ IconQA
 
 ```
 Icon645
-|
-└───dog
-|   |   
-|   |
-|   |   ...
-|   
-└───cat
-|   |   
-|   |   ...
-|      
-|   ...
+|   LICENCE.md
+|   metadata.json
+└───colored_icons_final
+    |
+    └───acorn
+    |   |   image_id1.png
+    |   |   image_id2.png
+    |   |   ...
+    |   
+    └───airplane
+    |   |   image_id3.png
+    |   |   ...
+    |      
+    |   ...
 
 ```
 
