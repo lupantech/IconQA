@@ -4,8 +4,6 @@ Shield: [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
 
 ## About
 
-![Examples from IconQA](./examples.png)
-
 IconQA: a new diverse abstract visual question answering dataset that highlights the importance of **abstract diagram understanding** and **comprehensive cognitive reasoning** in real-world problems
 
 Icon645: a new icon image dataset that covers a wide range of objects
