@@ -31,7 +31,7 @@ In addition to IconQA, we also present Icon645, a dataset of icons for training 
 
 ## Download
 
-Our dataset is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License][cc-by-nc-sa]. Please read the [license](LICENSE.md) before you use, change, or share our dataset.
+Our dataset is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License][cc-by-nc-sa]. Please read the license before you use, change, or share our dataset.
 
 - You can download IconQA [here](https://iconqa2021.s3.us-west-1.amazonaws.com/iconqa.zip).
 - You can download Icon645 [here](https://iconqa2021.s3.us-west-1.amazonaws.com/icon645.zip).
