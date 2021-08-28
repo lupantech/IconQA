@@ -130,7 +130,7 @@ If the paper or the dataset inspires you, please cite us:
 
 ```
 @inproceedings{lu2021iconqa,
-  title = {IconQA: A New Dataset for Abstract Diagram Understanding and Visual Language Reasoning},
+  title = {IconQA: A New Benchmark for Abstract Diagram Understanding and Visual Language Reasoning},
   author = {Lu, Pan and Qiu, Liang and Chen, Jiaqi and Xia, Tony and Zhao, Yizhou and Zhang, Wei and Yu, Zhou and Liang, Xiaodan and Zhu, Song-Chun},
   booktitle = {Submitted to the 35th Conference on Neural Information Processing Systems (NeurIPS 2021) Track on Datasets and Benchmarks},
   year = {2021}
