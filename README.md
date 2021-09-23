@@ -20,7 +20,7 @@ There are three different sub-tasks in **IconQA**:
 | -------------------- | ------ | ---------- | ------ | ------ |
 | *Multi-image-choice* | 34,603 | 11,535     | 11,535 | 57,672 |
 | *Multi-text-choice*  | 18,946 | 6,316      | 6,316  | 31,578 |
-| *Fill-in-the-blank* | 10,913 | 3,638      | 3,638  | 18,189 |
+| *Filling-in-the-blank* | 10,913 | 3,638      | 3,638  | 18,189 |
 
 In addition to **IconQA**, we also present **Icon645**, a large-scale dataset of icons that cover a wide range of objects:
 
