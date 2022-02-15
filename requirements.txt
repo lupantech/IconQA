@@ -1,0 +1,6 @@
+h5py
+transformers
+numpy
+Pillow
+torchvision
+tqdm

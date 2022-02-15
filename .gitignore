@@ -1,0 +1,14 @@
+data/iconqa_data
+data/icon645
+data/img_choice_embeddings
+data/patch_embeddings
+saved_models
+
+*.zip
+*.pkl
+*.idea
+*.vscode
+*.DS_Store
+*.ipynb_checkpoints
+*.pyc
+*__pycache__
