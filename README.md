@@ -250,7 +250,7 @@ In addition to **IconQA**, we also present **Icon645**, a large-scale dataset of
 - **645,687** colored icons
 - **377** different icon classes
 
-These collected icon classes are frequently mentioned in the IconQA questions. In this work, we use the icon data to pre-train 187 backbone networks on the icon classification task in order to extract semantic representations from abstract diagrams in IconQA. On top of pre-training encoders, the large-scale icon data could also contribute to open research on abstract aesthetics and symbolic visual understanding. 
+These collected icon classes are frequently mentioned in the IconQA questions. In this work, we use the icon data to pre-train backbone networks on the icon classification task in order to extract semantic representations from abstract diagrams in IconQA. On top of pre-training encoders, the large-scale icon data could also contribute to open research on abstract aesthetics and symbolic visual understanding. 
 
 ![icon_examples](data/icon645_examples.png)
 
