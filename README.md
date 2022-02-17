@@ -36,7 +36,7 @@ You can download **IconQA** [here](https://iconqa2021.s3.us-west-1.amazonaws.com
 
 Next, download pre-trained models [here](https://iconqa2021.s3.us-west-1.amazonaws.com/saved_models.zip) or from [Google Drive](https://drive.google.com/file/d/1cGHqvOK-aMqby21qeCLs4vv6wnWK3n4E), then unzip them into `root_dir`. 
 
-Or run the commands by:
+Or run the command by:
 
 ```shell
 . tools/download_data_and_models.sh
