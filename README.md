@@ -67,7 +67,7 @@ pip install -r requirements.txt
 
 ### Process IconQA Data
 
-Generate question dictionary labels:
+Generate the question dictionary:
 
 ```shell
 cd tools
