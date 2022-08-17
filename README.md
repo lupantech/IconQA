@@ -248,7 +248,7 @@ python sub_acc.py \
 In addition to **IconQA**, we also present **Icon645**, a large-scale dataset of icons that cover a wide range of objects:
 
 - **645,687** colored icons
-- **377** different icon classes
+- **377** different icon classes (class mapping is stored in [icon645_classes.json](https://github.com/lupantech/IconQA/blob/main/data/icon645_classes.json))
 
 These collected icon classes are frequently mentioned in the IconQA questions. In this work, we use the icon data to pre-train backbone networks on the icon classification task in order to extract semantic representations from abstract diagrams in IconQA. On top of pre-training encoders, the large-scale icon data could also contribute to open research on abstract aesthetics and symbolic visual understanding. 
 
