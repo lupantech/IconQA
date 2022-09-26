@@ -4,7 +4,7 @@ import os
 import numpy as np
 # import cPickle # python2
 import pickle as cPickle # python3
-
+from datetime import datetime
 
 def assert_eq(real, expected):
     assert real == expected, '%s (true) vs %s (expected)' % (real, expected)
@@ -45,7 +45,7 @@ class Logger(object):
     def write(self, msg):
         self.log_file.write(msg + '\n')
         self.log_file.flush()
-        print(msg)
+        print(datetime.now().isoformat(), " ",msg)
 
 
 class Dictionary(object):
@@ -80,14 +80,14 @@ class Dictionary(object):
 
     def dump_to_file(self, path):
         cPickle.dump([self.word2idx, self.idx2word], open(path, 'wb'))
-        print('dictionary dumped to %s' % path)
+        print(datetime.now().isoformat(), " ",'dictionary dumped to %s' % path)
 
     @classmethod
     def load_from_file(cls, path):
-        print('\nloading dictionary from %s' % path)
+        print(datetime.now().isoformat(), " ",'\nloading dictionary from %s' % path)
         word2idx, idx2word = cPickle.load(open(path, 'rb'))
         d = cls(word2idx, idx2word)
-        print('vocabulary number in the dictionary:', len(idx2word))
+        print(datetime.now().isoformat(), " ",'vocabulary number in the dictionary:', len(idx2word))
         return d
 
     def add_word(self, word):

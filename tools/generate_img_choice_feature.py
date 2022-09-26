@@ -9,7 +9,7 @@ import torch
 from torch.utils import data
 from torchvision import transforms
 import image_models
-
+from datetime import datetime
 warnings.filterwarnings("ignore")
 
 
@@ -97,14 +97,14 @@ def preprocess_images(input_path, output_path, arch, layer, icon_pretrained, spl
     # model
     model = image_models.get_image_model(arch, layer, icon_pretrained)
     model = model.eval().to(device)
-    print("ConvNet Model:", arch, layer)
+    print(datetime.now().isoformat(), " ","ConvNet Model:", arch, layer)
 
     # generate image embeddings
     embeddings = {}
-    print("Starting:")
+    print(datetime.now().isoformat(), " ","Starting:")
 
     with torch.no_grad():
-        print("total images:", len(data_loader))
+        print(datetime.now().isoformat(), " ","total images:", len(data_loader))
         for img_choices, img_id in tqdm(data_loader, total=len(data_loader)):
             choice_max_num = 5
             v_dim = 2048
@@ -118,23 +118,23 @@ def preprocess_images(input_path, output_path, arch, layer, icon_pretrained, spl
                 choice_embedding[i, :].copy_(embedding)
             embeddings[img_id.item()] = choice_embedding.cpu()
 
-    print("Computing image embeddings, Done!")
+    print(datetime.now().isoformat(), " ","Computing image embeddings, Done!")
 
     # save results
     output_path = os.path.join(output_path, "{}_{}".format(arch, layer))
     if icon_pretrained:
         output_path = output_path + "_icon"
-    print("final output path:", output_path)
+    print(datetime.now().isoformat(), " ","final output path:", output_path)
     os.makedirs(output_path, exist_ok=True)
 
-    print("Saving image embedddings:")
+    print(datetime.now().isoformat(), " ","Saving image embedddings:")
     if not icon_pretrained:
         image_embedding_file = os.path.join(output_path,
                                         "iconqa_{0}_{1}_{2}_{3}.pth".format(split, task, arch, layer))
     elif icon_pretrained:
         image_embedding_file = os.path.join(output_path,
                                         "iconqa_{0}_{1}_{2}_{3}_icon.pth".format(split, task, arch, layer))
-    print("Saved to {}".format(image_embedding_file))
+    print(datetime.now().isoformat(), " ","Saved to {}".format(image_embedding_file))
     torch.save(embeddings, image_embedding_file)
 
 
@@ -168,10 +168,10 @@ if __name__ == "__main__":
 
     for split in splits:
         args.split = split
-        print("\n----------------- Processing {} for {} -----------------\n".format(args.task, args.split))
+        print(datetime.now().isoformat(), " ","\n----------------- Processing {} for {} -----------------\n".format(args.task, args.split))
 
         # preprocess images
         for arg in vars(args):
-            print('%s: %s' % (arg, getattr(args, arg)))
+            print(datetime.now().isoformat(), " ",'%s: %s' % (arg, getattr(args, arg)))
         preprocess_images(args.input_path, args.output_path, args.arch, args.layer, 
                           args.icon_pretrained, args.split, args.task)

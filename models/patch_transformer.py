@@ -7,7 +7,7 @@ import torch
 import torch.nn as nn
 from .vitrm_models.Transformer import TransformerModel
 from .vitrm_models.PositionalEncoding import FixedPositionalEncoding, LearnedPositionalEncoding
-
+from datetime import datetime
 class VisionTransformer(nn.Module):
     def __init__(
         self,
@@ -109,4 +109,4 @@ if __name__ == '__main__':
     model = Patch_Transformer()
     input = torch.rand(4, 30, 2048) # [batch, patch_nums, patch_dim]
     output = model(input)
-    print(output.size())
+    print(datetime.now().isoformat(), " ",output.size())

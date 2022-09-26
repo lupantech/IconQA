@@ -1,6 +1,6 @@
 import torch
 from torchvision import models
-
+from datetime import datetime
 
 def get_image_model(arch, layer, icon_pretrained):
     if arch == 'resnet101' and not icon_pretrained:
@@ -15,8 +15,9 @@ def get_image_model(arch, layer, icon_pretrained):
         # load image model pretrained on our propossed Icon645 dataset
         model = models.__dict__['resnet101'](pretrained=False, num_classes=377) # icon classes from Icon645
 
+        # TODO: load saved_models from param instead of hard coded
         model_path = "../saved_models/icon_classification_ckpt/icon_resnet101_LDAM_DRW_lr0.01_0/ckpt.epoch66_best.pth.tar"
-        print("loading pretrained models on icon data: ", model_path)
+        print(datetime.now().isoformat(), " ","loading pretrained models on icon data: ", model_path)
         checkpoint = torch.load(model_path, map_location='cuda:0')
         model.load_state_dict(checkpoint['state_dict'])
 

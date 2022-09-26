@@ -10,7 +10,7 @@ from torch.utils.data import Dataset
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from tools import utils
-
+from datetime import datetime
 from transformers import AutoTokenizer
 bert_models = {'bert-base-uncased': 'bert-base-uncased',
                'bert-tiny':   'google/bert_uncased_L-2_H-128_A-2',
@@ -52,14 +52,14 @@ class Dictionary(object):
 
     def dump_to_file(self, path):
         cPickle.dump([self.word2idx, self.idx2word], open(path, 'wb'))
-        print('dictionary dumped to %s' % path)
+        print(datetime.now().isoformat(), " ",'dictionary dumped to %s' % path)
 
     @classmethod
     def load_from_file(cls, path):
-        print('\nloading dictionary from %s' % path)
+        print(datetime.now().isoformat(), " ",'\nloading dictionary from %s' % path)
         word2idx, idx2word = cPickle.load(open(path, 'rb'))
         d = cls(word2idx, idx2word) # initialize the instance
-        print('vocabulary number in the dictionary:', len(idx2word))
+        print(datetime.now().isoformat(), " ",'vocabulary number in the dictionary:', len(idx2word))
         return d
 
     def add_word(self, word):
@@ -95,7 +95,7 @@ def _load_dataset(dataroot, name, task):
     pid_splits = json.load(open(os.path.join(dataroot, 'iconqa_data', 'pid_splits.json')))
     
     pids = pid_splits['%s_%s' % (task, name)]
-    print("problem number for %s_%s:" % (task, name), len(pids))
+    print(datetime.now().isoformat(), " ","problem number for %s_%s:" % (task, name), len(pids))
 
     entries = []
     for pid in pids:
@@ -147,16 +147,16 @@ class IconQAFeatureDataset(Dataset):
 
         # load image features
         h5_path = os.path.join(dataroot, 'patch_embeddings', feat_label, 'iconqa_%s_%s_%s.pth' % (name, task, feat_label))
-        print('\nloading features from h5 file:', h5_path)
+        print(datetime.now().isoformat(), " ",'\nloading features from h5 file:', h5_path)
         self.features = torch.load(h5_path)
         self.num_patches = num_patches
         self.v_dim = list(self.features.values())[0].size()[1] # [num_patches,2048]
-        print("visual feature dim:", self.v_dim)
+        print(datetime.now().isoformat(), " ","visual feature dim:", self.v_dim)
 
         # load choice image features
         choice_h5_path = os.path.join(dataroot, 'img_choice_embeddings/',  choice_feat,
                                'iconqa_%s_%s_%s.pth' % (name, task, choice_feat))
-        print('\nloading image choice features from h5 file:', choice_h5_path)
+        print(datetime.now().isoformat(), " ",'\nloading image choice features from h5 file:', choice_h5_path)
         self.choice_features = torch.load(choice_h5_path)
 
     def tokenize(self):
@@ -164,7 +164,7 @@ class IconQAFeatureDataset(Dataset):
         Tokenize the questions.
         This will add q_token in each entry of the dataset.
         """
-        print('max token length is:', self.max_length)
+        print(datetime.now().isoformat(), " ",'max token length is:', self.max_length)
 
         for entry in self.entries:
             if 'bert' in self.lang_model: # For Bert

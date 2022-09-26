@@ -1,7 +1,7 @@
 from __future__ import print_function
 import torch.nn as nn
 from torch.nn.utils.weight_norm import weight_norm
-
+from datetime import datetime
 
 class FCNet(nn.Module):
     """
@@ -27,8 +27,8 @@ class FCNet(nn.Module):
 
 if __name__ == '__main__':
     fc1 = FCNet([10, 20, 10])
-    print(fc1)
+    print(datetime.now().isoformat(), " ",fc1)
 
-    print('============')
+    print(datetime.now().isoformat(), " ",'============')
     fc2 = FCNet([10, 20])
-    print(fc2)
+    print(datetime.now().isoformat(), " ",fc2)
