@@ -1,11 +1,12 @@
 from __future__ import print_function
+import argparse
 import os
 import sys
 import json
 # import cPickle # python2
 import pickle as cPickle # python3
 import utils
-
+from datetime import datetime
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
@@ -18,7 +19,7 @@ def create_ans2label(problems, pid_splits, task, cache_root, name='trainval'):
     - cache_root: output directory
     - name: prefix of the output file
     """
-    print("\nname:", name, "task:", task)
+    print(datetime.now().isoformat(), " ","\nname:", name, "task:", task)
 
     ans2label = {}
     label2ans = []
@@ -33,22 +34,22 @@ def create_ans2label(problems, pid_splits, task, cache_root, name='trainval'):
             ans = problems[pid]['answer']
             if ans not in answers:
                 answers.append(ans)
-        print("unique answers:", len(answers)) # 502
+        print(datetime.now().isoformat(), " ","unique answers:", len(answers)) # 502
 
     elif task == 'choose_txt':
         answers = [str(i) for i in range(10)]
-        print("unique answers:", len(answers)) # 10
+        print(datetime.now().isoformat(), " ","unique answers:", len(answers)) # 10
 
     elif task == 'choose_img':
         answers = [str(i) for i in range(5)]
-        print("unique answers:", len(answers)) # 5
+        print(datetime.now().isoformat(), " ","unique answers:", len(answers)) # 5
 
     # generate the label2ans dict and ans2label list
     for answer in answers:
         label2ans.append(answer)
         ans2label[answer] = label
         label += 1
-    print(label2ans, ans2label)
+    print(datetime.now().isoformat(), " ",label2ans, ans2label)
 
     utils.create_dir(cache_root)
 
@@ -56,17 +57,23 @@ def create_ans2label(problems, pid_splits, task, cache_root, name='trainval'):
     cPickle.dump(ans2label, open(cache_file, 'wb'))
     cache_file = os.path.join(cache_root, name+'_'+task+'_label2ans.pkl')
     cPickle.dump(label2ans, open(cache_file, 'wb'))
-    print('Done!')
+    print(datetime.now().isoformat(), " ",'Done!')
 
 
 if __name__ == '__main__':
+    # Parse arguments
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--input', type=str, default='../data')
+    parser.add_argument('--output', type=str, default='../data')
 
-    OUTPUT_FILE = '../data'
+    args = parser.parse_args()
+    # General
+    OUTPUT_FILE = args.output
 
-    problem_file = '../data/iconqa_data/problems.json'
+    problem_file = args.input + '/iconqa_data/problems.json'
     problems = json.load(open(problem_file))
 
-    pid_split_file = '../data/iconqa_data/pid_splits.json'
+    pid_split_file = args.input + '/iconqa_data/pid_splits.json'
     pid_splits = json.load(open(pid_split_file))
 
     # generate answer dictionary

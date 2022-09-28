@@ -2,8 +2,9 @@ from __future__ import print_function
 import os
 import sys
 import json
+import argparse
 from utils import Dictionary
-
+from datetime import datetime
 # sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append('../')
 
@@ -29,10 +30,17 @@ def create_dictionary(question_path, add_choice):
 
 
 if __name__ == '__main__':
-    ques_file = '../data/iconqa_data/problems.json'
-    out_path = '../data'
+    # Parse arguments
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--input', type=str, default='../data')
+    parser.add_argument('--output', type=str, default='../data')
+
+    args = parser.parse_args()
+    # General
+    ques_file = args.input + '/iconqa_data/problems.json'
+    out_path = args.output
     add_choice = True
 
     d = create_dictionary(ques_file, add_choice)
     d.dump_to_file(os.path.join(out_path, 'dictionary.pkl'))
-    print("dictionary size:", len(d)) # 2263 with choice words, 2085 without choice words
+    print(datetime.now().isoformat(), " ","dictionary size:", len(d)) # 2263 with choice words, 2085 without choice words
