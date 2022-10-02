@@ -150,8 +150,9 @@ if __name__ == "__main__":
     parser.add_argument("--layer", default="pool5", choices=["pool5"], help="pool5 with 2048-D")
     parser.add_argument("--icon_pretrained", default=False, help='use the icon pretrained model or not')
     # tasks and splits
-    parser.add_argument("--split", default="test",
-                        choices=["train", "val", "test", "trainval", "minitrain", "minival", "minitest"])
+    parser.add_argument("--split", default=["test", "val", "train"],
+                        choices=["train", "val", "test", "trainval", "minitrain", "minival", "minitest"],
+                        nargs="+")
     parser.add_argument("--task", default="choose_img", choices=["choose_img"])
     parser.add_argument("--gpu", type=int, default=0)
     args = parser.parse_args()
@@ -163,7 +164,7 @@ if __name__ == "__main__":
         device = torch.device('cpu')
 
     # manual settings
-    splits = ["test", "val", "train"]
+    splits = args.split #["test", "val", "train"]
     # splits = ["minival", "minitrain", "test", "val", "train"] # "minival", "minitrain" for quick checking
 
     for split in splits:

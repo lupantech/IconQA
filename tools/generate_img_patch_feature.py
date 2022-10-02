@@ -178,10 +178,12 @@ if __name__ == "__main__":
     parser.add_argument("--icon_pretrained", default=False, help='use the icon pretrained model or not')
     parser.add_argument("--patch_split", type=int, default=30, choices=[14,25,30,36,79])
     # tasks and splits
-    parser.add_argument("--split", default="test",
-                        choices=["train", "val", "test", "trainval", "minitrain", "minival", "minitest"])
-    parser.add_argument("--task", default="fill_in_blank",
-                        choices=["fill_in_blank", "choose_txt", "choose_img"])
+    parser.add_argument("--split", default=["test", "val", "train"],
+                        choices=["train", "val", "test", "trainval", "minitrain", "minival", "minitest"],
+                        nargs="+")
+    parser.add_argument("--task", default=["fill_in_blank", "choose_txt", "choose_img"],
+                        choices=["fill_in_blank", "choose_txt", "choose_img"],
+                        nargs="+")
     parser.add_argument("--gpu", type=int, default=0)
     args = parser.parse_args()
 
@@ -192,10 +194,10 @@ if __name__ == "__main__":
         device = torch.device('cpu')
 
     # manual settings
-    tasks = ["fill_in_blank", "choose_txt", "choose_img"]
-    splits = ["test", "val", "train"]
+    tasks = args.task #["fill_in_blank", "choose_txt", "choose_img"]
+    splits = args.split #["test", "val", "train"]
     # splits = ["minival", "minitrain", "test", "val", "train"] # "minival", "minitrain" for quick checking
-
+    
     for task in tasks:
         for split in splits:
             args.task, args.split = task, split
