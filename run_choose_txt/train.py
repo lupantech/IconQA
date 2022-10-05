@@ -110,7 +110,7 @@ def train(model, train_loader, eval_loader, num_epochs, output, save_all, patien
 
         # early stopping
         eval_scores.append(eval_score)
-        if epoch > max(20, patience) and max(eval_scores[-patience:]) < best_eval_score: # last N epochs
+        if epoch > max(40, patience) and max(eval_scores[-patience:]) < best_eval_score: # last N epochs
             print("Early Stopping!\n")
             break
 
