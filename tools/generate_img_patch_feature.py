@@ -87,6 +87,12 @@ class ICONQADataset(data.Dataset):
             patches = self.extract_patches(img, [1, 2, 3, 4])
         elif self.num_patches == 79:
             patches = self.extract_patches(img, [1, 2, 3, 4, 7])
+        elif self.num_patches == 55:
+            patches = self.extract_patches(img, [1, 2, 3, 4, 5])
+        elif self.num_patches == 88:
+            patches = self.extract_patches(img, [1, 2, 3, 5, 7])
+        elif self.num_patches == 189:
+            patches = self.extract_patches(img, [3,6,12])
         
         # num_patches * [3,224,224] -> [num_patches,3,224,224]
         patch_input = self.resize_patches(patches)
