@@ -182,7 +182,7 @@ if __name__ == "__main__":
     parser.add_argument("--arch", default="resnet101")
     parser.add_argument("--layer", default="pool5")
     parser.add_argument("--icon_pretrained", default=False, help='use the icon pretrained model or not')
-    parser.add_argument("--patch_split", type=int, default=30, choices=[14,25,30,36,79])
+    parser.add_argument("--patch_split", type=int, default=30, choices=[14,25,30,36,79,55,88,189])
     # tasks and splits
     parser.add_argument("--split", default=["test", "val", "train"],
                         choices=["train", "val", "test", "trainval", "minitrain", "minival", "minitest"],
