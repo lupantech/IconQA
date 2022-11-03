@@ -31,6 +31,7 @@ def get_answer(p, dataloader):
 def compute_test_acc(pred_logits, qIds, dataloader):
     acc = 0
     results = {}
+    results_detail = {}
     N = len(dataloader.dataset)
     assert N == qIds.size(0)
 
@@ -39,10 +40,12 @@ def compute_test_acc(pred_logits, qIds, dataloader):
         gt_ans = data['answer']
         pred_ans = get_answer(pred_logits[i], dataloader)
         results[pid] = pred_ans
-        if pred_ans == gt_ans:
+        is_correct = pred_ans == gt_ans
+        results_detail[pid] = is_correct
+        if is_correct:
             acc += 1
     acc = 100 * acc / N
-    return acc, results
+    return acc, results, results_detail
 
 
 @torch.no_grad()
@@ -78,7 +81,7 @@ def evaluate(model, dataloader, output):
 
     pbar.close()
 
-    acc, results = compute_test_acc(pred, qIds, dataloader)
+    acc, results, results_detail = compute_test_acc(pred, qIds, dataloader)
     print("\nTest acc: %.3f" % acc)
 
     # save results to json file
@@ -88,6 +91,7 @@ def evaluate(model, dataloader, output):
     for arg in vars(args):
         data['args'][arg] = getattr(args, arg)
     data['results'] = results
+    data['results_detail'] = results_detail
     with open("{}/{}_{}.json".format(args.output, args.label, args.model), 'w') as f:
         json.dump(data, f, indent = 2, separators=(',', ': '))
 
@@ -122,6 +126,9 @@ def parse_args():
                         choices=['bert-tiny', 'bert-mini', 'bert-small', 'bert-medium', 'bert-base', 'bert-base-uncased'])
     parser.add_argument('--max_length', type=int, default=34)
 
+    # filter testing data
+    parser.add_argument('--test_ids', type=str, default=[], nargs='*')
+
     args = parser.parse_args()
     return args
 
@@ -137,7 +144,7 @@ if __name__ == '__main__':
     # dataset
     dictionary = Dictionary.load_from_file(args.input + '/dictionary.pkl') # load dictionary
     eval_dset = IconQAFeatureDataset('test', args.task, args.feat_label, args.input,
-                                  dictionary, args.lang_model, args.max_length) # generate test data
+                                  dictionary, args.lang_model, args.max_length, args.test_ids) # generate test data
     batch_size = args.batch_size
 
     # data loader

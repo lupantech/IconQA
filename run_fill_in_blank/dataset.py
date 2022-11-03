@@ -83,7 +83,7 @@ def _simplify_question(ques):
         return ques
 
 
-def _load_dataset(dataroot, name, task, ans2label, label2ans):
+def _load_dataset(dataroot, name, task, ans2label, label2ans, test_ids = []):
     """
     Load the IconQA dataset.
     - dataroot: root path of dataset
@@ -97,6 +97,14 @@ def _load_dataset(dataroot, name, task, ans2label, label2ans):
     print(datetime.now().isoformat(), " ","problem number for %s_%s:" % (task, name), len(pids))
 
     entries = []
+    if name == 'test' and len(test_ids) > 0:        
+        #print(pids[0:10])    
+        #print(test_ids[0:10])
+        pids = list(filter(lambda p: p in test_ids, pids))        
+        print(datetime.now().isoformat(), " ", "Test data is filtered to ", len(pids), " items.")
+    else:
+        print(datetime.now().isoformat(), " ", "Test data filtering is NOT applied.")
+
     for pid in pids:
         prob = {}
         prob['question_id'] = pid
@@ -123,7 +131,7 @@ def _load_dataset(dataroot, name, task, ans2label, label2ans):
 
 
 class IconQAFeatureDataset(Dataset):
-    def __init__(self, name, task, feat_label, dataroot, dictionary, lang_model, max_length):
+    def __init__(self, name, task, feat_label, dataroot, dictionary, lang_model, max_length, test_ids = []):
         super(IconQAFeatureDataset, self).__init__ ()
         assert name in ['train', 'val', 'test', 'traninval', 'minitrain', 'minival', 'minitest']
         assert 'bert' in lang_model
@@ -140,7 +148,7 @@ class IconQAFeatureDataset(Dataset):
         self.num_ans_candidates = len(self.ans2label) # 3129
 
         # load and tokenize the questions
-        self.entries = _load_dataset(dataroot, name, task, self.ans2label, self.label2ans)
+        self.entries = _load_dataset(dataroot, name, task, self.ans2label, self.label2ans, test_ids)
         if 'bert' in self.lang_model:
             self.tokenizer = AutoTokenizer.from_pretrained(bert_models[self.lang_model]) # For Bert
         self.tokenize()
